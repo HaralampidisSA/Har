@@ -6,6 +6,7 @@
     <Authors>Alexandros Nakos</Authors>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/HaralampidisSA/Har</PackageProjectUrl>
+    <PackageId>HaralampidisSA.AspNetCore.Mvc.Alerts</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
