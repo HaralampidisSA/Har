@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Har.AspNetCore.Mvc.Alerts\Har.AspNetCore.Mvc.Alerts.csproj" />
+    <ProjectReference Include="..\Har\Har.csproj" />
+  </ItemGroup>
+
+</Project>

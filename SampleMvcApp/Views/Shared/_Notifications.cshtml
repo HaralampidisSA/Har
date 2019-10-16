@@ -1,0 +1,16 @@
+﻿@using Har.AspNetCore.Mvc.Alerts
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var notifications = TempData.ContainsKey(AlertDefaults.AlertListKey) ? JsonSerializer.Deserialize<IList<AlertMessage>>(TempData[AlertDefaults.AlertListKey].ToString()) : null;
+}
+
+
+@if (notifications?.Any() == true)
+{
+    @foreach (var notification in notifications)
+    {
+        <div>@Html.Raw(notification.Message)</div>
+    }
+}
