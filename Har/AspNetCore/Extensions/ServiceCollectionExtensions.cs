@@ -11,8 +11,6 @@ namespace Har.AspNetCore.Extensions
 
             var engine = EngineContext.Create();
             engine.ConfigureEngineServices(services, configuration);
-
-
         }
     }
 }

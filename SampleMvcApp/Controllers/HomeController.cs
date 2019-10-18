@@ -1,6 +1,7 @@
 ﻿using Har.AspNetCore.Mvc.Alerts.Services;
+using Har.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using SampleMvcApp.Data;
 
 namespace SampleMvcApp.Controllers
 {
@@ -8,7 +9,10 @@ namespace SampleMvcApp.Controllers
     {
         private readonly IAlertService _alert;
 
-        public HomeController(IAlertService alertService)
+
+
+        public HomeController(IAlertService alertService,
+            IRepository<Product, int> repository)
         {
             _alert = alertService;
         }
@@ -18,8 +22,12 @@ namespace SampleMvcApp.Controllers
 
             _alert.InfoAlert("Test Title", "Test Message");
 
-            _alert.ErrorAlert(new Exception("Test Exception"));
+            _alert.ErrorAlert("Error Title", "Error message");
+
+
             return View();
         }
     }
+
+
 }

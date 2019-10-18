@@ -4,6 +4,7 @@ using Har.Startups;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SampleMvcApp.Modules;
 
 namespace SampleMvcApp.Infrastructure
 {
@@ -24,6 +25,7 @@ namespace SampleMvcApp.Infrastructure
         public void ConfigureModules(ContainerBuilder containerBuilder, IConfiguration configuration)
         {
             containerBuilder.RegisterModule(new AlertsModule());
+            containerBuilder.RegisterModule(new TestModule());
         }
 
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)

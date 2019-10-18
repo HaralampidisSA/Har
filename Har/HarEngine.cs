@@ -28,11 +28,31 @@ namespace Har
             }
         }
 
+        public void ConfigureContainer(IServiceCollection services, IConfiguration configuration, ITypeFinder typeFinder)
+        {
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterInstance(this).As<IEngine>().SingleInstance();
+
+            containerBuilder.RegisterInstance(typeFinder).As<ITypeFinder>().SingleInstance();
+
+            containerBuilder.Populate(services);
+
+            var configs = typeFinder.FindClassesOfType<IAppStartup>();
+            var instances = configs.Select(t => (IAppStartup)Activator.CreateInstance(t)).OrderBy(o => o.Order);
+            foreach (var instance in instances)
+            {
+                instance.ConfigureModules(containerBuilder, configuration);
+            }
+
+            AutofacContainer = containerBuilder.Build();
+        }
+
         public void ConfigureEngineRequestPipeline(IApplicationBuilder application)
         {
             AutofacContainer = application.ApplicationServices.GetAutofacRoot();
 
             var typeFinder = Resolve<ITypeFinder>();
+
             var startupConfigurations = typeFinder.FindClassesOfType<IAppStartup>();
 
             var instances = startupConfigurations.Select(startup => (IAppStartup)Activator.CreateInstance(startup)).OrderBy(startup => startup.Order);
@@ -54,6 +74,8 @@ namespace Har
             {
                 instance.ConfigureServices(services, configuration);
             }
+
+            // ConfigureContainer(services, configuration, typeFinder);
         }
 
         public T Resolve<T>() where T : class
